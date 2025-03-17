@@ -18,13 +18,6 @@ export default function Home() {
     return () => clearInterval(interval);
   }, []);
 
-  const toggleFlip = (index) => {
-    setFlipped((prev) => {
-      const newFlip = [...prev];
-      newFlip[index] = !newFlip[index];
-      return newFlip;
-    });
-  };
 
   const projects = [
     { name: "Project Alpha", description: "A powerful backend API for managing user authentication." },
