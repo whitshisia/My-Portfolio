@@ -7,7 +7,6 @@ import { FaLinkedin, FaGithub } from "react-icons/fa";
 import Image from "next/image";
 
 export default function Home() {
-  const [flipped, setFlipped] = useState([false, false, false]);
   const [roleIndex, setRoleIndex] = useState(0);
   const roles = ["Whitney Shisia", "Software Developer"];
 
@@ -16,8 +15,7 @@ export default function Home() {
       setRoleIndex((prevIndex) => (prevIndex + 1) % roles.length);
     }, 2000);
     return () => clearInterval(interval);
-  }, []);
-
+  }, [roles.length]);
 
   const projects = [
     { name: "Project Alpha", description: "A powerful backend API for managing user authentication." },
@@ -49,6 +47,7 @@ export default function Home() {
           width={180} 
           height={180} 
           className="rounded-full border-4 border-[#CA763A]"
+          priority // Add priority for above-the-fold images
         />
         <motion.div>
           <motion.h1
@@ -68,31 +67,31 @@ export default function Home() {
 
       {/* Social Links */}
       <div className="flex space-x-4 mt-6">
-        <Link href="https://linkedin.com" target="_blank">
+        <Link href="https://linkedin.com" target="_blank" rel="noopener noreferrer">
           <FaLinkedin className="text-3xl text-[#CA763A] hover:text-white transition" />
         </Link>
-        <Link href="https://github.com" target="_blank">
+        <Link href="https://github.com" target="_blank" rel="noopener noreferrer">
           <FaGithub className="text-3xl text-[#CA763A] hover:text-white transition" />
         </Link>
       </div>
 
-{/* Projects Section */}
-<div id="projects" className="mt-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-  {projects.map((project, index) => (
-    <motion.div
-      key={index}
-      className="relative w-72 h-48 cursor-pointer"
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      transition={{ delay: index * 0.2 }}
-    >
-      <div className="relative w-full h-full bg-white text-black p-6 rounded-xl shadow-lg flex items-center justify-center transition-all duration-300 group">
-        <h3 className="text-xl font-semibold text-center group-hover:hidden">{project.name}</h3>
-        <p className="text-sm text-center hidden group-hover:block">{project.description}</p>
+      {/* Projects Section */}
+      <div id="projects" className="mt-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {projects.map((project, index) => (
+          <motion.div
+            key={index}
+            className="relative w-72 h-48 cursor-pointer"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: index * 0.2 }}
+          >
+            <div className="relative w-full h-full bg-white text-black p-6 rounded-xl shadow-lg flex items-center justify-center transition-all duration-300 group">
+              <h3 className="text-xl font-semibold text-center group-hover:hidden">{project.name}</h3>
+              <p className="text-sm text-center hidden group-hover:block">{project.description}</p>
+            </div>
+          </motion.div>
+        ))}
       </div>
-    </motion.div>
-  ))}
-</div>
 
       {/* Contact Section */}
       <div id="contact" className="mt-16 text-center">
